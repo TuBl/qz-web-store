@@ -90,21 +90,21 @@ const reshapeCart = (cart: MedusaCart): Cart => {
   const lines = cart?.items?.map((item) => reshapeLineItem(item)) || [];
   const totalQuantity = lines.reduce((a, b) => a + b.quantity, 0);
   const checkoutUrl = '/checkout'; // todo: implement medusa checkout flow
-  const currencyCode = cart.region?.currency_code.toUpperCase() || 'USD';
+  const currencyCode = cart?.region?.currency_code.toUpperCase() || 'USD';
 
   let subtotalAmount = '0';
-  if (cart.subtotal && cart.region) {
-    subtotalAmount = computeAmount({ amount: cart.subtotal, region: cart.region }).toString();
+  if (cart?.subtotal && cart?.region) {
+    subtotalAmount = computeAmount({ amount: cart?.subtotal, region: cart?.region }).toString();
   }
 
   let totalAmount = '0';
-  if (cart.total && cart.region) {
-    totalAmount = computeAmount({ amount: cart.total, region: cart.region }).toString();
+  if (cart?.total && cart?.region) {
+    totalAmount = computeAmount({ amount: cart?.total, region: cart?.region }).toString();
   }
 
   let totalTaxAmount = '0';
-  if (cart.tax_total && cart.region) {
-    totalTaxAmount = computeAmount({ amount: cart.tax_total, region: cart.region }).toString();
+  if (cart?.tax_total && cart?.region) {
+    totalTaxAmount = computeAmount({ amount: cart?.tax_total, region: cart?.region }).toString();
   }
 
   const cost = {
@@ -448,7 +448,7 @@ export async function getProducts({
     return [];
   }
 
-  let products: Product[] = res?.body.products.map((product: MedusaProduct) =>
+  let products: Product[] = res?.body.products?.map((product: MedusaProduct) =>
     reshapeProduct(product)
   );
 
